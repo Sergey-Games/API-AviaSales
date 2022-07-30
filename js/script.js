@@ -5,7 +5,6 @@ const inputCitiesTo = document.querySelector('.input__cities-to');
 const dropdownCitiesTo = document.querySelector('.dropdown__cities-to');
 const inputDateDepart = document.querySelector('.input__date-depart');
 const cheapestTicket = document.getElementById('cheapest-ticket');
-const otherCheapTickets = document.getElementById('other-cheap-tickets');
 
 // База данных городов
 
@@ -201,7 +200,6 @@ formSearch.addEventListener('submit', (event) => {
     event.preventDefault();
 
     cheapestTicket.textContent = '';
-    otherCheapTickets.textContent = '';
 
     const cityFrom = city.find(item => inputCitiesFrom.value === item.name);
     const cityTo = city.find(item => inputCitiesTo.value === item.name);
@@ -223,7 +221,7 @@ formSearch.addEventListener('submit', (event) => {
         '&one_way=true&token=' + API_KEY;
         '&token=' + API_KEY;
 
-        getData(calendar + requestDataBy, (response) => {
+        getData(proxy + calendar + requestDataBy, (response) => {
             renderCheap(response, formData.when);
         });
 
@@ -235,7 +233,7 @@ formSearch.addEventListener('submit', (event) => {
         '&destination=' + formData.to.code + 
         '&one_way=true&token=' + API_KEY;
 
-        getData(calendar + requestDataRu, (response) => {
+        getData(proxy + calendar + requestDataRu, (response) => {
             renderCheap(response, formData.when);
         });
     } else {
@@ -247,7 +245,7 @@ formSearch.addEventListener('submit', (event) => {
 
 // getData(proxy + citiesApi, data => city = JSON.parse(data).filter(item => item.name));
 
-getData(citiesApi, (data) => {
+getData(proxy + citiesApi, (data) => {
     city.sort((a, b) => {
         if (a.name > b.name) {
             return 1;
